@@ -5,6 +5,7 @@ var {
   LinkingIOS,
   StyleSheet,
   Text,
+	View
 	TouchableOpacity
 } = React
 
@@ -103,7 +104,7 @@ var HTMLView = React.createClass({
   },
   render() {
     if (this.state.element) {
-      return <Text children={this.state.element} />
+      return <View children={this.state.element} />
     }
     return <Text />
   }
