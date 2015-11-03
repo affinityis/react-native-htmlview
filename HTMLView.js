@@ -5,7 +5,7 @@ var {
   LinkingIOS,
   StyleSheet,
   Text,
-	View
+	View,
 	TouchableOpacity
 } = React
 
