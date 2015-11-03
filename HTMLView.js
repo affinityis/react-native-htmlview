@@ -5,6 +5,7 @@ var {
   LinkingIOS,
   StyleSheet,
   Text,
+	TouchableOpacity
 } = React
 
 var LINE_BREAK = '\n'
@@ -36,14 +37,16 @@ function htmlToElement(rawHtml, opts, done) {
         }
 
         return (
-          <Text key={index} onPress={linkPressHandler}>
-            {node.name == 'pre' ? LINE_BREAK : null}
-            {node.name == 'li' ? BULLET : null}
-            {domToElement(node.children, node)}
-            {node.name == 'br' ? LINE_BREAK : null}
-            {node.name == 'li' ? LINE_BREAK : null}
-            {node.name == 'p' && index < list.length-1 ? PARAGRAPH_BREAK : null}
-          </Text>
+					<TouchableOpacity onPress={linkPressHandler}>
+          	<Text key={index} >
+            	{node.name == 'pre' ? LINE_BREAK : null}
+            	{node.name == 'li' ? BULLET : null}
+            	{domToElement(node.children, node)}
+            	{node.name == 'br' ? LINE_BREAK : null}
+            	{node.name == 'li' ? LINE_BREAK : null}
+            	{node.name == 'p' && index < list.length-1 ? PARAGRAPH_BREAK : null}
+          	</Text>
+					</TouchableOpacity>
         )
       }
     })
