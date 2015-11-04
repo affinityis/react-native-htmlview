@@ -104,7 +104,7 @@ var HTMLView = React.createClass({
   },
   render() {
     if (this.state.element) {
-      return <View style={{flexDirection:'row'}} children={this.state.element} />
+      return <View style={[this.props.viewStyle,{flexDirection:'row'}]} children={this.state.element} />
     }
     return <Text />
   }
