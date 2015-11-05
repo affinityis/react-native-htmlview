@@ -23,7 +23,7 @@ function htmlToElement(rawHtml, opts, done) {
         if (rendered || rendered === null) return rendered
       }
 
-      if (node.type == 'text') {
+      if (node.type === 'text') {
         return (
           <Text key={index} style={parent ? opts.styles[parent.name] : null}>
             {entities.decodeHTML(node.data)}
@@ -31,23 +31,25 @@ function htmlToElement(rawHtml, opts, done) {
         )
       }
 
-      if (node.type == 'tag') {
+      if (node.type === 'tag') {
         var linkPressHandler = null
-        if (node.name == 'a' && node.attribs && node.attribs.href) {
+        if (node.name === 'a' && node.attribs && node.attribs.href) {
           linkPressHandler = () => opts.linkHandler(entities.decodeHTML(node.attribs.href))
         }
 
         return (
+					<View key={'tag_'+index} style={{alignSelf:'flex-start',flexWrap:'wrap', flexDirection:'row'}}>
 					<TouchableOpacity onPress={linkPressHandler}>
-          	<Text key={index} >
-            	{node.name == 'pre' ? LINE_BREAK : null}
-            	{node.name == 'li' ? BULLET : null}
+          	<Text>
+            	{node.name === 'pre' ? LINE_BREAK : null}
+            	{node.name === 'li' ? BULLET : null}
             	{domToElement(node.children, node)}
-            	{node.name == 'br' ? LINE_BREAK : null}
-            	{node.name == 'li' ? LINE_BREAK : null}
-            	{node.name == 'p' && index < list.length-1 ? PARAGRAPH_BREAK : null}
+            	{node.name === 'br' ? LINE_BREAK : null}
+            	{node.name === 'li' ? LINE_BREAK : null}
+            	{node.name === 'p' && index < list.length-1 ? PARAGRAPH_BREAK : null}
           	</Text>
 					</TouchableOpacity>
+					</View>
         )
       }
     })
@@ -99,14 +101,17 @@ var HTMLView = React.createClass({
 
       if (err) return (this.props.onError || console.error)(err)
 
-      if (this.isMounted()) this.setState({element})
+      if (this.isMounted()) {
+				console.log('element: ', element);
+				this.setState({element})
+			}
     })
   },
   render() {
     if (this.state.element) {
-      return <View style={[this.props.viewStyle,{flexDirection:'row'}]} children={this.state.element} />
+      return <View style={{justifyContent:'center', alignItems:'flex-start', flexWrap:'wrap',flex:1,width:this.props.width}}>{this.state.element}</View>
     }
-    return <Text />
+    return <View style={{backgroundColor:'grey'}} />
   }
 })
 
